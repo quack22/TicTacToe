@@ -6,54 +6,11 @@ body {
   font-family: sans-serif;
   margin: 20px;
   padding: 0;
-}
-
-h1 {
-  margin-top: 0;
-  font-size: 22px;
-}
-
-h2 {
-  margin-top: 0;
-  font-size: 20px;
-}
-
-h3 {
-  margin-top: 0;
-  font-size: 18px;
-}
-
-h4 {
-  margin-top: 0;
-  font-size: 16px;
-}
-
-h5 {
-  margin-top: 0;
-  font-size: 14px;
-}
-
-h6 {
-  margin-top: 0;
-  font-size: 12px;
-}
-
-code {
-  font-size: 1.2em;
-}
-
-ul {
-  padding-inline-start: 20px;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  font-family: sans-serif;
-  margin: 20px;
-  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f0f0f0;
 }
 
 .square {
@@ -69,6 +26,12 @@ body {
   padding: 0;
   text-align: center;
   width: 34px;
+  transition: background 0.3s ease;
+  color: black;
+}
+
+.square.winning {
+  background: #00ff00;
 }
 
 .board-row:after {
@@ -80,11 +43,52 @@ body {
 .status {
   margin-bottom: 10px;
 }
+
 .game {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  align-items: center;
 }
 
 .game-info {
-  margin-left: 20px;
+  margin-top: 20px;
+}
+
+button {
+  padding: 10px;
+  font-size: 16px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background: #4CAF50;
+  color: white;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #45a049;
+}
+
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+ol {
+  padding-left: 0;
+  list-style: none;
+}
+
+ol li {
+  margin-bottom: 5px;
+}
+
+.toggle-button {
+  margin-bottom: 10px;
+  background: #2196F3;
+}
+
+.toggle-button:hover {
+  background: #0b7dda;
 }
