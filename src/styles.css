@@ -3,31 +3,45 @@
 }
 
 body {
-  font-family: sans-serif;
-  margin: 20px;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: #f0f0f0;
+  background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+}
+
+h1 {
+  font-size: 2.5em;
+  color: #333;
+  margin: 0;
+  padding: 20px 0;
+  text-align: center;
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  text-shadow: 2px 2px #fff;
 }
 
 .square {
   background: #fff;
-  border: 1px solid #999;
+  border: 2px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 36px;
   font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
+  line-height: 60px;
+  height: 60px;
+  margin-right: -2px;
+  margin-top: -2px;
   padding: 0;
   text-align: center;
-  width: 34px;
-  transition: background 0.3s ease;
-  color: black;
+  width: 60px;
+  transition: background 0.3s ease, transform 0.2s;
+  color: black;  /* Warna hitam untuk X dan O */
+}
+
+.square:hover {
+  transform: scale(1.1);
 }
 
 .square.winning {
@@ -41,7 +55,10 @@ body {
 }
 
 .status {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
 }
 
 .game {
@@ -52,10 +69,12 @@ body {
 
 .game-info {
   margin-top: 20px;
+  font-size: 18px;
+  color: #fff;
 }
 
 button {
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 16px;
   margin: 5px;
   cursor: pointer;
@@ -63,11 +82,12 @@ button {
   border: none;
   background: #4CAF50;
   color: white;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s;
 }
 
 button:hover {
   background: #45a049;
+  transform: scale(1.05);
 }
 
 button:disabled {
