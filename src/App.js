@@ -64,7 +64,6 @@ function Board({ xIsNext, squares, onPlay, winningSquares }) {
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
-  const [isAscending, setIsAscending] = useState(true);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -74,47 +73,14 @@ export default function Game() {
     setCurrentMove(nextHistory.length - 1);
   }
 
-  function jumpTo(nextMove) {
-    setCurrentMove(nextMove);
-  }
-
-  function toggleSortOrder() {
-    setIsAscending(!isAscending);
-  }
-
   const winnerInfo = calculateWinner(currentSquares);
   const winningSquares = winnerInfo ? winnerInfo.line : [];
-
-  const moves = history.map((squares, move) => {
-    const row = Math.floor(history[move].indexOf("X") / 3);
-    const col = history[move].indexOf("X") % 3;
-    const desc = move ?
-      `Go to move #${move} (${row}, ${col})` :
-      'Go to game start';
-    return (
-      <li key={move}>
-        <button onClick={() => jumpTo(move)}>
-          {move === currentMove ? `You are at move #${move}` : desc}
-        </button>
-      </li>
-    );
-  });
-
-  if (!isAscending) {
-    moves.reverse();
-  }
 
   return (
     <div className="game">
       <h1>TIC TAC TOE</h1>
       <div className="game-board">
         <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} winningSquares={winningSquares} />
-      </div>
-      <div className="game-info">
-        <button className="toggle-button" onClick={toggleSortOrder}>
-          {isAscending ? "Sort Descending" : "Sort Ascending"}
-        </button>
-        <ol>{moves}</ol>
       </div>
     </div>
   );
