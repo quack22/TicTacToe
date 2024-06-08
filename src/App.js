@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+// Komponen untuk kotak pada papan permainan
 function Square({ value, onSquareClick, isWinning }) {
   return (
     <button className={`square ${isWinning ? "winning" : ""}`} onClick={onSquareClick}>
@@ -8,6 +9,7 @@ function Square({ value, onSquareClick, isWinning }) {
   );
 }
 
+// Komponen untuk papan permainan
 function Board({ xIsNext, squares, onPlay, winningSquares }) {
   function handleClick(i) {
     if (squares[i] || calculateWinner(squares)) {
@@ -61,9 +63,14 @@ function Board({ xIsNext, squares, onPlay, winningSquares }) {
   );
 }
 
+// Komponen utama untuk permainan
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
   const [currentMove, setCurrentMove] = useState(0);
+  const [xPlayerName, setXPlayerName] = useState("");
+  const [oPlayerName, setOPlayerName] = useState("");
+  const [isMultiplayer, setIsMultiplayer] = useState(true);
+  const [gameStarted, setGameStarted] = useState(false);
   const xIsNext = currentMove % 2 === 0;
   const currentSquares = history[currentMove];
 
@@ -76,16 +83,60 @@ export default function Game() {
   const winnerInfo = calculateWinner(currentSquares);
   const winningSquares = winnerInfo ? winnerInfo.line : [];
 
+  function startGame(event) {
+    event.preventDefault();
+    setGameStarted(true);
+  }
+
+  function resetGame() {
+    setHistory([Array(9).fill(null)]);
+    setCurrentMove(0);
+    setGameStarted(false);
+  }
+
   return (
     <div className="game">
       <h1>TIC TAC TOE</h1>
-      <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} winningSquares={winningSquares} />
-      </div>
+      {!gameStarted ? (
+        <form onSubmit={startGame}>
+          <input
+            type="text"
+            placeholder="Enter Player X Name"
+            value={xPlayerName}
+            onChange={(e) => setXPlayerName(e.target.value)}
+            required
+          />
+          <input
+            type="text"
+            placeholder="Enter Player O Name"
+            value={oPlayerName}
+            onChange={(e) => setOPlayerName(e.target.value)}
+            required
+            disabled={!isMultiplayer}
+          />
+          <label>
+            <input
+              type="checkbox"
+              checked={isMultiplayer}
+              onChange={(e) => setIsMultiplayer(e.target.checked)}
+            />
+            Multiplayer
+          </label>
+          <button type="submit">Start Game</button>
+        </form>
+      ) : (
+        <>
+          <div className="game-board">
+            <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} winningSquares={winningSquares} />
+          </div>
+          <button onClick={resetGame}>Play Again</button>
+        </>
+      )}
     </div>
   );
 }
 
+// Fungsi untuk menghitung pemenang
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
